@@ -24,7 +24,7 @@ export default async function ProjetosPage() {
           {result.data.length ? (
             <div className="grid gap-4 xl:grid-cols-2">
               {result.data.map((project) => (
-                <article key={project.id} className="rounded-[24px] border border-slate-200 p-5">
+                <article key={project.id} className="app-card-muted rounded-[24px] p-5">
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-wrap items-center gap-3">
                       <h3 className="text-lg font-semibold text-slate-950">{project.name}</h3>
@@ -43,7 +43,7 @@ export default async function ProjetosPage() {
                     <div className="pt-2">
                       <Link
                         href={`/projetos/${project.id}`}
-                        className="inline-flex rounded-2xl bg-violet-600 px-4 py-3 text-sm font-medium text-white transition hover:bg-violet-700"
+                        className="app-button-primary inline-flex rounded-2xl px-4 py-3 text-sm font-medium text-white transition hover:brightness-105"
                       >
                         Ver detalhes
                       </Link>

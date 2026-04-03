@@ -25,7 +25,7 @@ export default async function RiscosPage() {
           {risksResult.data.length ? (
             <div className="grid gap-4 xl:grid-cols-2">
               {risksResult.data.map((risk) => (
-                <article key={risk.id} className="rounded-[24px] border border-slate-200 p-5">
+                <article key={risk.id} className="app-card-muted rounded-[24px] p-5">
                   <div className="flex flex-wrap items-center gap-3">
                     <h3 className="text-lg font-semibold text-slate-950">{risk.title}</h3>
                     <StatusBadge value={risk.impact || risk.status} />

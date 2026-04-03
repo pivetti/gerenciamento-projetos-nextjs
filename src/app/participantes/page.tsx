@@ -32,9 +32,9 @@ export default async function ParticipantesPage() {
 
         <SectionCard title="Lista de participantes" description="Usuario relacionado, projeto e papel dentro do contexto do projeto.">
           {participantsResult.data.length ? (
-            <div className="overflow-x-auto rounded-[24px] border border-slate-200">
+            <div className="app-table overflow-x-auto rounded-[24px]">
               <table className="min-w-full text-left text-sm">
-                <thead className="bg-slate-50 text-slate-500">
+                <thead className="text-slate-500">
                   <tr>
                     <th className="px-4 py-3 font-medium">Usuario</th>
                     <th className="px-4 py-3 font-medium">Projeto</th>
@@ -44,7 +44,7 @@ export default async function ParticipantesPage() {
                 </thead>
                 <tbody>
                   {participantsResult.data.map((participant) => (
-                    <tr key={participant.id} className="border-t border-slate-200">
+                    <tr key={participant.id}>
                       <td className="px-4 py-4 font-medium text-slate-900">
                         {participant.userName || (participant.userId ? userMap.get(participant.userId) : undefined) || participant.userId || "-"}
                       </td>

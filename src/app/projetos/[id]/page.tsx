@@ -79,7 +79,7 @@ export default async function ProjetoDetalhePage({ params }: { params: Promise<{
       actions={
         <Link
           href="/projetos"
-          className="rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+          className="app-button-secondary rounded-2xl px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-white/90"
         >
           Voltar para projetos
         </Link>
@@ -97,7 +97,7 @@ export default async function ProjetoDetalhePage({ params }: { params: Promise<{
 
         <SectionCard title="Visao geral do projeto" description="Dados principais retornados pela API para o projeto selecionado.">
           <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
-            <div className="rounded-[24px] border border-slate-200 p-5">
+            <div className="app-card-muted rounded-[24px] p-5">
               <div className="flex flex-wrap items-center gap-3">
                 <h3 className="text-xl font-semibold text-slate-950">{project.name}</h3>
                 <StatusBadge value={project.status} />
@@ -106,21 +106,21 @@ export default async function ProjetoDetalhePage({ params }: { params: Promise<{
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-[24px] border border-slate-200 p-5">
+              <div className="app-card-muted rounded-[24px] p-5">
                 <p className="text-sm text-slate-500">Inicio</p>
                 <p className="mt-2 text-base font-semibold text-slate-950">{formatDate(project.startDate)}</p>
               </div>
-              <div className="rounded-[24px] border border-slate-200 p-5">
+              <div className="app-card-muted rounded-[24px] p-5">
                 <p className="text-sm text-slate-500">Fim</p>
                 <p className="mt-2 text-base font-semibold text-slate-950">{formatDate(project.endDate)}</p>
               </div>
-              <div className="rounded-[24px] border border-slate-200 p-5">
+              <div className="app-card-muted rounded-[24px] p-5">
                 <p className="text-sm text-slate-500">Orcamento</p>
                 <p className="mt-2 text-base font-semibold text-slate-950">
                   {formatCurrencyBRL(project.budgetValue, project.budgetLabel)}
                 </p>
               </div>
-              <div className="rounded-[24px] border border-slate-200 p-5">
+              <div className="app-card-muted rounded-[24px] p-5">
                 <p className="text-sm text-slate-500">Gestor</p>
                 <p className="mt-2 text-base font-semibold text-slate-950">{project.managerName || "-"}</p>
               </div>
@@ -133,7 +133,7 @@ export default async function ProjetoDetalhePage({ params }: { params: Promise<{
             {participants.length ? (
               <div className="space-y-3">
                 {participants.map((participant) => (
-                  <div key={participant.id} className="rounded-[24px] border border-slate-200 p-4">
+                  <div key={participant.id} className="app-card-muted rounded-[24px] p-4">
                     <div className="flex flex-wrap items-center gap-3">
                       <p className="font-medium text-slate-950">
                         {participant.userName ||
@@ -158,7 +158,7 @@ export default async function ProjetoDetalhePage({ params }: { params: Promise<{
             {risks.length ? (
               <div className="space-y-3">
                 {risks.map((risk) => (
-                  <div key={risk.id} className="rounded-[24px] border border-slate-200 p-4">
+                  <div key={risk.id} className="app-card-muted rounded-[24px] p-4">
                     <div className="flex flex-wrap items-center gap-3">
                       <p className="font-medium text-slate-950">{risk.title}</p>
                       <StatusBadge value={risk.impact || risk.status} />
@@ -176,9 +176,9 @@ export default async function ProjetoDetalhePage({ params }: { params: Promise<{
 
         <SectionCard title="Atividades" description="Execucao do projeto por atividade e responsavel.">
           {activities.length ? (
-            <div className="overflow-x-auto rounded-[24px] border border-slate-200">
+            <div className="app-table overflow-x-auto rounded-[24px]">
               <table className="min-w-full text-left text-sm">
-                <thead className="bg-slate-50 text-slate-500">
+                <thead className="text-slate-500">
                   <tr>
                     <th className="px-4 py-3 font-medium">Atividade</th>
                     <th className="px-4 py-3 font-medium">Responsavel</th>
@@ -189,7 +189,7 @@ export default async function ProjetoDetalhePage({ params }: { params: Promise<{
                 </thead>
                 <tbody>
                   {activities.map((activity) => (
-                    <tr key={activity.id} className="border-t border-slate-200">
+                    <tr key={activity.id}>
                       <td className="px-4 py-4 font-medium text-slate-900">{activity.title}</td>
                       <td className="px-4 py-4 text-slate-600">{activity.participantName || activity.participantId || "-"}</td>
                       <td className="px-4 py-4"><StatusBadge value={activity.status} /></td>
@@ -210,7 +210,7 @@ export default async function ProjetoDetalhePage({ params }: { params: Promise<{
             {resources.length ? (
               <div className="space-y-3">
                 {resources.map((resource) => (
-                  <div key={resource.id} className="rounded-[24px] border border-slate-200 p-4">
+                  <div key={resource.id} className="app-card-muted rounded-[24px] p-4">
                     <div className="flex flex-wrap items-center gap-3">
                       <p className="font-medium text-slate-950">{resource.name}</p>
                       <StatusBadge value={resource.type || resource.availabilityStatus} />
@@ -228,7 +228,7 @@ export default async function ProjetoDetalhePage({ params }: { params: Promise<{
             {costs.length ? (
               <div className="space-y-3">
                 {costs.map((cost) => (
-                  <div key={cost.id} className="rounded-[24px] border border-slate-200 p-4">
+                  <div key={cost.id} className="app-card-muted rounded-[24px] p-4">
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <p className="font-medium text-slate-950">{cost.description || cost.type || "Custo registrado"}</p>
                       <p className="text-sm font-semibold text-slate-950">

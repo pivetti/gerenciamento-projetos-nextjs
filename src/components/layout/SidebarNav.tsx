@@ -13,7 +13,11 @@ const items = [
   { href: "/riscos", label: "Riscos" },
 ];
 
-export function SidebarNav() {
+interface SidebarNavProps {
+  onNavigate?: () => void;
+}
+
+export function SidebarNav({ onNavigate }: SidebarNavProps) {
   const pathname = usePathname();
 
   return (
@@ -25,10 +29,11 @@ export function SidebarNav() {
           <Link
             key={item.href}
             href={item.href}
+            onClick={onNavigate}
             className={`block rounded-2xl px-4 py-3 text-sm font-medium transition ${
               active
-                ? "bg-violet-600 text-white shadow-lg shadow-violet-200"
-                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                ? "bg-white !text-[#2b135d] shadow-[0_18px_30px_rgba(8,5,25,0.25)]"
+                : "text-[#f3efff] hover:bg-white/10 hover:text-white"
             }`}
           >
             {item.label}

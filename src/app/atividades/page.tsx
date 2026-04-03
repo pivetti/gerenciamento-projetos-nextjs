@@ -38,9 +38,9 @@ export default async function AtividadesPage() {
 
         <SectionCard title="Lista de atividades" description="Itens consultados em tempo real da API Spring.">
           {activitiesResult.data.length ? (
-            <div className="overflow-x-auto rounded-[24px] border border-slate-200">
+            <div className="app-table overflow-x-auto rounded-[24px]">
               <table className="min-w-full text-left text-sm">
-                <thead className="bg-slate-50 text-slate-500">
+                <thead className="text-slate-500">
                   <tr>
                     <th className="px-4 py-3 font-medium">Titulo</th>
                     <th className="px-4 py-3 font-medium">Projeto</th>
@@ -52,7 +52,7 @@ export default async function AtividadesPage() {
                 </thead>
                 <tbody>
                   {activitiesResult.data.map((activity) => (
-                    <tr key={activity.id} className="border-t border-slate-200">
+                    <tr key={activity.id}>
                       <td className="px-4 py-4 font-medium text-slate-900">{activity.title}</td>
                       <td className="px-4 py-4 text-slate-600">
                         {activity.projectName ||

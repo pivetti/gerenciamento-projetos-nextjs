@@ -169,7 +169,31 @@ export function normalizeProject(payload: unknown): Project | null {
     return null;
   }
 
-  const budgetValue = numberValue(raw, ["orcamento", "budget", "valorOrcamento", "custoPrevisto"]);
+  const budgetValue = numberValue(raw, [
+    "orcamento",
+    "budget",
+    "valorOrcamento",
+    "orcamentoPrevisto",
+    "custoPrevisto",
+    "budgetValue",
+  ]);
+
+  const managerName =
+    stringValue(raw, [
+      "gerente.nome",
+      "gestor.nome",
+      "responsavel.nome",
+      "gerenteProjeto.nome",
+      "gerenteProjeto.name",
+      "manager.name",
+      "managerName",
+      "nomeGestor",
+      "nomeGerente",
+      "gerenteEmail",
+      "gestorEmail",
+    ]) ||
+    relationId(raw, ["gerenteProjetoId", "gerenteId", "gestorId", "responsavelId", "managerId"]) ||
+    null;
 
   return {
     id: extractId(raw) || stringValue(raw, ["projetoId", "codigo"]) || "sem-id",
@@ -179,9 +203,8 @@ export function normalizeProject(payload: unknown): Project | null {
     startDate: stringValue(raw, ["dataInicio", "startDate", "inicio", "inicioPrevisto"]) || null,
     endDate: stringValue(raw, ["dataFim", "endDate", "termino", "fimPrevisto"]) || null,
     budgetValue,
-    budgetLabel: stringValue(raw, ["orcamento", "budgetLabel", "valorOrcamento"]) || null,
-    managerName:
-      stringValue(raw, ["gerente.nome", "gestor.nome", "responsavel.nome", "manager.name", "managerName"]) || null,
+    budgetLabel: stringValue(raw, ["orcamento", "budgetLabel", "valorOrcamento", "orcamentoPrevisto"]) || null,
+    managerName,
     raw,
   };
 }

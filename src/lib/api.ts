@@ -1,12 +1,14 @@
 import { extractCollection, normalizeItemPayload } from "./normalize";
 
-class ApiRequestError extends Error {
+export class ApiRequestError extends Error {
   status?: number;
+  payload?: unknown;
 
-  constructor(message: string, status?: number) {
+  constructor(message: string, status?: number, payload?: unknown) {
     super(message);
     this.name = "ApiRequestError";
     this.status = status;
+    this.payload = payload;
   }
 }
 
@@ -31,24 +33,24 @@ async function parseResponseBody(response: Response) {
   }
 }
 
-function buildErrorMessage(path: string, payload: unknown, status: number) {
+function buildErrorMessage(path: string, payload: unknown, status: number, action = "consultar") {
   if (payload && typeof payload === "object") {
     const record = payload as Record<string, unknown>;
     const message = record.message || record.error || record.detail;
 
     if (typeof message === "string") {
-      return `${status} ao consultar ${path}: ${message}`;
+      return `${status} ao ${action} ${path}: ${message}`;
     }
   }
 
   if (typeof payload === "string" && payload.trim()) {
-    return `${status} ao consultar ${path}: ${payload}`;
+    return `${status} ao ${action} ${path}: ${payload}`;
   }
 
-  return `${status} ao consultar ${path}.`;
+  return `${status} ao ${action} ${path}.`;
 }
 
-async function request(path: string) {
+export async function requestJson(path: string, init: RequestInit = {}) {
   const baseUrl = getBaseUrl();
 
   if (!baseUrl) {
@@ -57,17 +59,27 @@ async function request(path: string) {
     );
   }
 
+  const headers = new Headers(init.headers);
+
+  if (!headers.has("Accept")) {
+    headers.set("Accept", "application/json");
+  }
+
+  if (init.body && !(init.body instanceof FormData) && !headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
+  }
+
   const response = await fetch(`${baseUrl}${path}`, {
+    ...init,
     cache: "no-store",
-    headers: {
-      Accept: "application/json",
-    },
+    headers,
   });
 
   const payload = await parseResponseBody(response);
 
   if (!response.ok) {
-    throw new ApiRequestError(buildErrorMessage(path, payload, response.status), response.status);
+    const action = init.method && init.method !== "GET" ? "enviar para" : "consultar";
+    throw new ApiRequestError(buildErrorMessage(path, payload, response.status, action), response.status, payload);
   }
 
   return payload;
@@ -78,7 +90,7 @@ export async function fetchCollection(paths: string[]) {
 
   for (const path of paths) {
     try {
-      const payload = await request(path);
+      const payload = await requestJson(path);
       return { items: extractCollection(payload), source: path };
     } catch (error) {
       if (error instanceof ApiRequestError && error.status === 404) {
@@ -98,7 +110,7 @@ export async function fetchItem(paths: string[]) {
 
   for (const path of paths) {
     try {
-      const payload = await request(path);
+      const payload = await requestJson(path);
       return { item: normalizeItemPayload(payload), source: path };
     } catch (error) {
       if (error instanceof ApiRequestError && error.status === 404) {

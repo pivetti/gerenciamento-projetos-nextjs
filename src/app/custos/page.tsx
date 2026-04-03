@@ -35,9 +35,9 @@ export default async function CustosPage() {
 
         <SectionCard title="Lista de custos" description="Valores consumidos diretamente da API persistida.">
           {costsResult.data.length ? (
-            <div className="overflow-x-auto rounded-[24px] border border-slate-200">
+            <div className="app-table overflow-x-auto rounded-[24px]">
               <table className="min-w-full text-left text-sm">
-                <thead className="bg-slate-50 text-slate-500">
+                <thead className="text-slate-500">
                   <tr>
                     <th className="px-4 py-3 font-medium">Descricao</th>
                     <th className="px-4 py-3 font-medium">Projeto</th>
@@ -49,7 +49,7 @@ export default async function CustosPage() {
                 </thead>
                 <tbody>
                   {costsResult.data.map((cost) => (
-                    <tr key={cost.id} className="border-t border-slate-200">
+                    <tr key={cost.id}>
                       <td className="px-4 py-4 font-medium text-slate-900">{cost.description || cost.type || "Custo"}</td>
                       <td className="px-4 py-4 text-slate-600">
                         {cost.projectName || (cost.projectId ? projectMap.get(cost.projectId) : undefined) || cost.projectId || "-"}

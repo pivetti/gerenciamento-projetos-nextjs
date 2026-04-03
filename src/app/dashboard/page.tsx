@@ -21,13 +21,13 @@ export default async function DashboardPage() {
         <>
           <Link
             href="/projetos"
-            className="rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+            className="app-button-secondary rounded-2xl px-4 py-3 text-center text-sm font-medium text-slate-700 transition hover:bg-white/90 sm:text-left"
           >
             Ver projetos
           </Link>
           <Link
             href="/riscos"
-            className="rounded-2xl bg-violet-600 px-4 py-3 text-sm font-medium text-white transition hover:bg-violet-700"
+            className="app-button-primary rounded-2xl px-4 py-3 text-center text-sm font-medium !text-white transition hover:brightness-105 sm:text-left"
           >
             Ver riscos
           </Link>
@@ -73,7 +73,7 @@ export default async function DashboardPage() {
             actions={
               <Link
                 href="/projetos"
-                className="rounded-2xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600"
+                className="app-button-secondary rounded-2xl px-3 py-2 text-sm font-medium text-slate-700"
               >
                 Abrir listagem
               </Link>
@@ -82,7 +82,7 @@ export default async function DashboardPage() {
             {dashboard.projects.length ? (
               <div className="space-y-4">
                 {dashboard.projects.slice(0, 5).map((project) => (
-                  <article key={project.id} className="rounded-[24px] border border-slate-200 p-5">
+                  <article key={project.id} className="app-card-muted rounded-[22px] p-4 sm:rounded-[24px] sm:p-5">
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                       <div className="space-y-3">
                         <div className="flex flex-wrap items-center gap-3">
@@ -99,7 +99,7 @@ export default async function DashboardPage() {
 
                       <Link
                         href={`/projetos/${project.id}`}
-                        className="rounded-2xl bg-violet-600 px-4 py-3 text-sm font-medium text-white transition hover:bg-violet-700"
+                        className="app-button-primary rounded-2xl px-4 py-3 text-center text-sm font-medium !text-white transition hover:brightness-105"
                       >
                         Ver detalhe
                       </Link>
@@ -120,7 +120,7 @@ export default async function DashboardPage() {
               {dashboard.risks.length ? (
                 <div className="space-y-3">
                   {dashboard.risks.slice(0, 4).map((risk) => (
-                    <div key={risk.id} className="rounded-[24px] border border-slate-200 p-4">
+                    <div key={risk.id} className="app-card-muted rounded-[24px] p-4">
                       <div className="flex items-center justify-between gap-3">
                         <p className="font-medium text-slate-900">{risk.title}</p>
                         <StatusBadge value={risk.impact || risk.status} />
@@ -139,7 +139,7 @@ export default async function DashboardPage() {
               {dashboard.activities.length ? (
                 <div className="space-y-3">
                   {dashboard.activities.slice(0, 4).map((activity) => (
-                    <div key={activity.id} className="rounded-[24px] border border-slate-200 p-4">
+                    <div key={activity.id} className="app-card-muted rounded-[24px] p-4">
                       <div className="flex flex-wrap items-center gap-3">
                         <p className="font-medium text-slate-900">{activity.title}</p>
                         <StatusBadge value={activity.status || activity.priority} />

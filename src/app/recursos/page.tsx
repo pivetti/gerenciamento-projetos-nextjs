@@ -25,7 +25,7 @@ export default async function RecursosPage() {
           {resourcesResult.data.length ? (
             <div className="grid gap-4 xl:grid-cols-2">
               {resourcesResult.data.map((resource) => (
-                <article key={resource.id} className="rounded-[24px] border border-slate-200 p-5">
+                <article key={resource.id} className="app-card-muted rounded-[24px] p-5">
                   <div className="flex flex-wrap items-center gap-3">
                     <h3 className="text-lg font-semibold text-slate-950">{resource.name}</h3>
                     <StatusBadge value={resource.type || resource.availabilityStatus} />
