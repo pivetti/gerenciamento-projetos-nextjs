@@ -105,7 +105,7 @@ export default async function ProjetoDetalhePage({ params }: { params: Promise<{
               <p className="mt-4 text-sm leading-7 text-slate-600">{project.description || "Sem descricao informada pela API."}</p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-3">
               <div className="app-card-muted rounded-[24px] p-5">
                 <p className="text-sm text-slate-500">Inicio</p>
                 <p className="mt-2 text-base font-semibold text-slate-950">{formatDate(project.startDate)}</p>
@@ -119,10 +119,6 @@ export default async function ProjetoDetalhePage({ params }: { params: Promise<{
                 <p className="mt-2 text-base font-semibold text-slate-950">
                   {formatCurrencyBRL(project.budgetValue, project.budgetLabel)}
                 </p>
-              </div>
-              <div className="app-card-muted rounded-[24px] p-5">
-                <p className="text-sm text-slate-500">Gestor</p>
-                <p className="mt-2 text-base font-semibold text-slate-950">{project.managerName || "-"}</p>
               </div>
             </div>
           </div>

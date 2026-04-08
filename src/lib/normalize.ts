@@ -239,12 +239,13 @@ export function normalizeActivity(payload: unknown): Activity | null {
     id: extractId(raw) || stringValue(raw, ["atividadeId", "codigo"]) || "sem-id",
     title: stringValue(raw, ["titulo", "nome", "title", "name"]) || "Atividade sem titulo",
     projectId: relationId(raw, ["projetoId", "projectId", "projeto", "project"]) || null,
-    projectName: relationName(raw, ["projeto.nome", "project.name", "nomeProjeto", "projectName"]) || null,
+    projectName: relationName(raw, ["projeto.nome", "project.name", "nomeProjeto", "projectName", "projetoNome"]) || null,
     participantId:
       relationId(raw, ["participanteId", "responsavelId", "participantId", "responsavel", "participant"]) || null,
     participantName:
       relationName(raw, [
         "responsavel.nome",
+        "responsavelNome",
         "participante.usuario.nome",
         "participant.user.name",
         "participantName",

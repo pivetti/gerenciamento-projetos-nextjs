@@ -37,7 +37,6 @@ export default async function ProjetosPage() {
                       <div>Inicio: {formatDate(project.startDate)}</div>
                       <div>Fim: {formatDate(project.endDate)}</div>
                       <div>Orcamento: {formatCurrencyBRL(project.budgetValue, project.budgetLabel)}</div>
-                      <div>Gestor: {project.managerName || "-"}</div>
                     </div>
 
                     <div className="pt-2">
