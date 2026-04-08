@@ -218,11 +218,12 @@ export function normalizeParticipant(payload: unknown): Participant | null {
   return {
     id: extractId(raw) || stringValue(raw, ["participanteId", "codigo"]) || "sem-id",
     projectId: relationId(raw, ["projetoId", "projectId", "projeto", "project"]) || null,
-    projectName: relationName(raw, ["projeto.nome", "project.name", "nomeProjeto", "projectName"]) || null,
+    projectName: relationName(raw, ["projeto.nome", "project.name", "nomeProjeto", "projectName", "projetoNome"]) || null,
     userId: relationId(raw, ["usuarioId", "userId", "usuario", "user"]) || null,
     userName:
-      relationName(raw, ["usuario.nome", "user.name", "nomeUsuario", "userName", "responsavel.nome"]) || null,
-    role: stringValue(raw, ["papel", "funcao", "role", "cargo"]) || null,
+      relationName(raw, ["usuario.nome", "user.name", "nomeUsuario", "userName", "responsavel.nome", "usuarioNome"]) ||
+      null,
+    role: stringValue(raw, ["papelAcesso", "funcaoNoProjeto", "papel", "funcao", "role", "cargo"]) || null,
     active: booleanValue(raw, ["ativo", "active", "statusAtivo"]) ?? null,
     raw,
   };
@@ -283,18 +284,20 @@ export function normalizeCost(payload: unknown): Cost | null {
     return null;
   }
 
-  const amount = numberValue(raw, ["valor", "amount", "custo", "price"]);
+  const amount = numberValue(raw, ["valorReal", "valorPrevisto", "valor", "amount", "custo", "price"]);
 
   return {
     id: extractId(raw) || stringValue(raw, ["custoId", "codigo"]) || "sem-id",
     projectId: relationId(raw, ["projetoId", "projectId", "projeto", "project"]) || null,
-    projectName: relationName(raw, ["projeto.nome", "project.name", "nomeProjeto", "projectName"]) || null,
+    projectName: relationName(raw, ["projeto.nome", "project.name", "nomeProjeto", "projectName", "projetoNome"]) || null,
     activityId: relationId(raw, ["atividadeId", "activityId", "atividade", "activity"]) || null,
-    activityName: relationName(raw, ["atividade.nome", "atividade.titulo", "activity.name", "activity.title"]) || null,
+    activityName:
+      relationName(raw, ["atividade.nome", "atividade.titulo", "activity.name", "activity.title", "atividadeTitulo"]) ||
+      null,
     resourceId: relationId(raw, ["recursoId", "resourceId", "recurso", "resource"]) || null,
-    resourceName: relationName(raw, ["recurso.nome", "resource.name", "nomeRecurso", "resourceName"]) || null,
+    resourceName: relationName(raw, ["recurso.nome", "resource.name", "nomeRecurso", "resourceName", "recursoNome"]) || null,
     amount,
-    amountLabel: stringValue(raw, ["valor", "amountLabel", "custo"]) || null,
+    amountLabel: stringValue(raw, ["valorReal", "valorPrevisto", "valor", "amountLabel", "custo"]) || null,
     type: stringValue(raw, ["tipo", "type", "categoria"]) || null,
     description: stringValue(raw, ["descricao", "description", "observacao"]) || null,
     incurredAt: stringValue(raw, ["data", "incurredAt", "dataLancamento"]) || null,
@@ -312,10 +315,12 @@ export function normalizeRisk(payload: unknown): Risk | null {
     id: extractId(raw) || stringValue(raw, ["riscoId", "codigo"]) || "sem-id",
     title: stringValue(raw, ["titulo", "nome", "title", "name"]) || "Risco sem titulo",
     projectId: relationId(raw, ["projetoId", "projectId", "projeto", "project"]) || null,
-    projectName: relationName(raw, ["projeto.nome", "project.name", "nomeProjeto", "projectName"]) || null,
+    projectName: relationName(raw, ["projeto.nome", "project.name", "nomeProjeto", "projectName", "projetoNome"]) || null,
     impact: stringValue(raw, ["impacto", "impact"]) || null,
     probability: stringValue(raw, ["probabilidade", "probability"]) || null,
-    responsePlan: stringValue(raw, ["planoResposta", "mitigacao", "responsePlan", "response"]) || null,
+    responsePlan:
+      stringValue(raw, ["planoMitigacao", "estrategiaResposta", "planoResposta", "mitigacao", "responsePlan", "response"]) ||
+      null,
     status: stringValue(raw, ["status", "situacao", "state"]) || null,
     raw,
   };
